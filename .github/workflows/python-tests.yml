@@ -1,0 +1,27 @@
+name: Python Unit Tests
+
+# Trigger the workflow every time you push to the main or master branch
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Download the code from the repo onto the GitHub cloud server
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    # 2. Install Python on the cloud server
+    - name: Set up Python environment
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    # 3. Run the test file using Python's built-in unittest module
+    - name: Run automated unit tests
+      run: python -m unittest test_calculator.py
